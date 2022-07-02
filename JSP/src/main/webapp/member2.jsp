@@ -1,11 +1,12 @@
 <%@ page language="java"   contentType="text/html; charset=UTF-8"
-     import="java.util.*,sec01.ex01.*" 
+     import="java.util.*,test04.*"
     pageEncoding="UTF-8"%>
+<%@ page import="test04.MemberBean" %>
 <%
   request.setCharacterEncoding("UTF-8");
 %>    
 
-<jsp:useBean  id="m"  class="sec01.ex01.MemberBean"  scope="page"/>
+<jsp:useBean  id="m"  class="test04.MemberBean"  scope="page"/>
 
 <%
    String   id=request.getParameter("id");
@@ -27,7 +28,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>회원 목록창</title>
+  <title>회원 목록창2</title>
 </head>
 <body>
   <table align="center"  width="100%">

@@ -45,7 +45,28 @@ public class MemberController extends HttpServlet {
             req.setAttribute("membersList", membersList);
             nextPage = "/ex01/listMembers.jsp";
         }
-
+        else if(action.equals("/modMemberForm.do")) {
+            String _id = req.getParameter("id");
+            MemberVO memInfo = memberDAO.findMember(_id);
+            req.setAttribute("memInfo", memInfo);
+            nextPage = "/ex01/modMemberForm.jsp";
+        }
+        else if(action.equals("/modMember.do")) {
+            String id = req.getParameter("id");
+            String pwd = req.getParameter("pwd");
+            String name = req.getParameter("name");
+            String email = req.getParameter("email");
+            MemberVO memberVO = new MemberVO(id,pwd,name,email);
+            memberDAO.modMember(memberVO);
+            req.setAttribute("msg", "modified");
+            nextPage = "/member/listMembers.do";
+        }
+        else if (action.equals("/delMember.do")) {
+            String id = req.getParameter("id");
+            memberDAO.delMember(id);
+            req.setAttribute("msg", "deleted");
+            nextPage = "/member/listMembers.do";
+        }
         else if (action.equals("/addMember.do")) {
             String id = req.getParameter("id");
             String pwd = req.getParameter("pwd");

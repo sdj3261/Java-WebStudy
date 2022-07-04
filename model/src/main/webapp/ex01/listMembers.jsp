@@ -18,13 +18,36 @@
 %>
 <html>
 <head>
+    <c:choose>
+    <c:when test = '${msg == "addMember"}'>
+        <script>
+            window.onload = function () {
+                alert("회원을 등록했습니다.");
+            }
+        </script>
+    </c:when>
+    <c:when test = '${msg == "modified"}'>
+        <script>
+            window.onload = function () {
+                alert("회원을 수정했습니다.");
+            }
+        </script>
+    </c:when>
+    <c:when test = '${msg == "deleted"}'>
+        <script>
+            window.onload = function () {
+                alert("회원을 삭제했습니다.");
+            }
+        </script>
+    </c:when>
+    </c:choose>
     <title>회원정보출력창</title>
     <style>
         .cls1 {
             font-size : 40px;
             text-align : center;
         }
-        .clse2 {
+        .cls2 {
             font-size : 20px;
             text-align : center;
         }
@@ -49,13 +72,15 @@
             </tr>
         </c:when>
         <c:when test = "${!empty membersList}">
-            <c:forEach var="vo" items="${membersList}">
+            <c:forEach var="memInfo" items="${membersList}">
             <tr align = "center">
-                <td>${vo.id}</td>
-                <td>${vo.pwd}</td>
-                <td>${vo.name}</td>
-                <td>${vo.email}</td>
-                <td>${vo.joinDate}</td>
+                <td>${memInfo.id}</td>
+                <td>${memInfo.pwd}</td>
+                <td>${memInfo.name}</td>
+                <td>${memInfo.email}</td>
+                <td>${memInfo.joinDate}</td>
+                <td><a href =${contextPath}/member/modMemberForm.do?id=${memInfo.id }"> 수정</a></td>
+                <td><a href =${contextPath}/member/delMember.do?id=${memInfo.id }"> 삭제</a></td>
             </tr>
         </c:forEach>
         </c:when>

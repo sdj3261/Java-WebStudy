@@ -9,8 +9,10 @@
          pageEncoding ="UTF-8"
          isELIgnored="false"
 %>
+
 <%@ taglib prefix ="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "c" uri ="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%
     request.setCharacterEncoding("utf-8");
 %>
@@ -59,7 +61,7 @@
         </c:when>
     </c:choose>
 </table>
-<a href = "#">
+<a href = "${contextPath}/ex01/memberForm.jsp">
     <p class = "cls2"> 회원 가입하기</p>
 </a>
 </body>

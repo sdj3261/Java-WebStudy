@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/mem.do")
+@WebServlet("/member/*")
 public class MemberController extends HttpServlet {
     MemberDAO memberDAO;
 
@@ -36,10 +36,34 @@ public class MemberController extends HttpServlet {
     private void doHandle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html;charset=utf-8");
+        String nextPage = null;
+        String action = req.getPathInfo();
+        System.out.println("action : " + action);
 
-        List<MemberVO> membersList = memberDAO.listMembers();
-        req.setAttribute("membersList", membersList);
-        RequestDispatcher dispatch = req.getRequestDispatcher("/ex01/listMembers.jsp");
-        dispatch.forward(req,resp);
+        if (action == null || action.equals("/listMembers.do")) {
+            List<MemberVO> membersList = memberDAO.listMembers();
+            req.setAttribute("membersList", membersList);
+            nextPage = "/ex01/listMembers.jsp";
+        }
+
+        else if (action.equals("/addMember.do")) {
+            String id = req.getParameter("id");
+            String pwd = req.getParameter("pwd");
+            String name = req.getParameter("name");
+            String email = req.getParameter("email");
+
+            MemberVO Insert_VO = new MemberVO(id,pwd,name,email);
+            memberDAO.addMember(Insert_VO);
+            nextPage = ("/member/listMembers.do");
+        } else if (action.equals("/membersForm.do")) {
+            nextPage = "/ex01/memberForm.jsp";
+        }
+        else {
+            List<MemberVO> membersList = memberDAO.listMembers();
+            req.setAttribute("membersList", membersList);
+            nextPage = "/ex01/listMembers.jsp";
+        }
+        RequestDispatcher dispatch = req.getRequestDispatcher(nextPage);
+        dispatch.forward(req, resp);
     }
 }

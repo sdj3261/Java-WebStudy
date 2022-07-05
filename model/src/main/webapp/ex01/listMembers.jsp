@@ -62,6 +62,8 @@
     <td width = "7%"><b>이름</b></td>
     <td width = "7%"><b>이메일</b></td>
     <td width = "7%"><b>가입일</b></td>
+    <td width = "7%"><b>수정</b></td>
+    <td width = "7%"><b>삭제</b></td>
 </tr>
     <c:choose>
         <c:when test = "${ empty membersList}">
@@ -79,8 +81,8 @@
                 <td>${memInfo.name}</td>
                 <td>${memInfo.email}</td>
                 <td>${memInfo.joinDate}</td>
-                <td><a href =${contextPath}/member/modMemberForm.do?id=${memInfo.id }"> 수정</a></td>
-                <td><a href =${contextPath}/member/delMember.do?id=${memInfo.id }"> 삭제</a></td>
+                <td><a href ="${contextPath}/member/modMemberForm.do?id=${memInfo.id }"> 수정</a></td>
+                <td><a href ="${contextPath}/member/delMember.do?id=${memInfo.id }"> 삭제</a></td>
             </tr>
         </c:forEach>
         </c:when>

@@ -36,6 +36,7 @@ public class BoardController extends HttpServlet {
      */
     public void init(ServletConfig config) throws ServletException {
         boardService = new BoardService();
+        articleVO = new ArticleVO();
     }
 
     /**
@@ -74,13 +75,14 @@ public class BoardController extends HttpServlet {
                 nextPage = "/ex01/articleForm.jsp";
             } else if (action.equals("/addArticle.do")) {
                 Map<String,String> articleMap = upload(request,response);
-                String title = articleMap.get("title");
                 String content = articleMap.get("content");
                 String imageFileName = articleMap.get("imageFileName");
+                String title = articleMap.get("title");
+                System.out.println("title =========== : " + title);
 
-                articleVO.setArticleNO(0);
+                articleVO.setParentNO(0);
                 articleVO.setId("hong");
-                articleVO.setTitle(title);
+                articleVO.setTitle("DDD");
                 articleVO.setContent(content);
                 articleVO.setImageFileName(imageFileName);
 
@@ -97,6 +99,7 @@ public class BoardController extends HttpServlet {
             e.printStackTrace();
         }
     }
+
     private Map<String, String> upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String,String> articleMap = new HashMap<String, String>();
         String encoding = "utf-8";
@@ -111,6 +114,7 @@ public class BoardController extends HttpServlet {
                 FileItem fileItem = (FileItem) items.get(i);
                 if (fileItem.isFormField()) {
                     System.out.println(fileItem.getFieldName() + "=" +fileItem.getString(encoding));
+                    articleMap.put(fileItem.getFieldName(), fileItem.getString(encoding));
                 } else {
                     System.out.println("파라미터이름 : " + fileItem.getFieldName());
                     System.out.println("파일이름 : " + fileItem.getName());

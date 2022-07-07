@@ -71,7 +71,7 @@ public class BoardDAO {
            pstmt = conn.prepareStatement(query);
            ResultSet rs = pstmt.executeQuery();
            if (rs.next()) {
-               return rs.getInt("articleNo") + 1;
+               return rs.getInt(1) + 1;
            }
            rs.close();
            pstmt.close();
@@ -91,7 +91,7 @@ public class BoardDAO {
             String id = article.getId();
             String imageFileName = article.getImageFileName();
             String query = "INSERT INTO t_board (articleNo, parentNo, title, content, imageFileName, id)"
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
+                    + " VALUES (?, ?, ?, ?, ?, ?)";
 
             System.out.println(query);
             pstmt = conn.prepareStatement(query);
@@ -101,6 +101,7 @@ public class BoardDAO {
             pstmt.setString(4,content);
             pstmt.setString(5,imageFileName);
             pstmt.setString(6, id);
+
             pstmt.executeUpdate();
             pstmt.close();
             conn.close();

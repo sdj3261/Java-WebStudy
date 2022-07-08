@@ -81,10 +81,10 @@ public class BoardDAO {
        }
        return 0;
     }
-    public void insertNewArticle(ArticleVO article) {
+    public int insertNewArticle(ArticleVO article) {
+        int articleNo = getNewArticleNO();
         try {
             conn = dataFactory.getConnection();
-            int articleNo = getNewArticleNO();
             int parentNo = article.getParentNO();
             String title = article.getTitle();
             String content = article.getContent();
@@ -105,8 +105,11 @@ public class BoardDAO {
             pstmt.executeUpdate();
             pstmt.close();
             conn.close();
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return articleNo;
     }
 }

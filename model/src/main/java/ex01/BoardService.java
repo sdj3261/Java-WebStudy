@@ -14,7 +14,7 @@ public class BoardService {
         return boardDAO.selectAllArticles();
     }
 
-    public void addArticle(ArticleVO article) {
-        boardDAO.insertNewArticle(article);
+    public int addArticle(ArticleVO article) {
+        return boardDAO.insertNewArticle(article);
     }
 }

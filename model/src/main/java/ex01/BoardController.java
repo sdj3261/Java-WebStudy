@@ -82,7 +82,7 @@ public class BoardController extends HttpServlet {
                 System.out.println("title =========== : " + title);
                 articleVO.setParentNO(0);
                 articleVO.setId("hong");
-                articleVO.setTitle("DDD");
+                articleVO.setTitle(title);
                 articleVO.setContent(content);
                 articleVO.setImageFileName(imageFileName);
 
@@ -136,8 +136,8 @@ public class BoardController extends HttpServlet {
                         }
 
                         String fileName = fileItem.getName().substring(idx+1);
-                        //articleMap.put(fileItem.getFieldName(), fileName);
-                        File uploadFile = new File(currentDirPath + "\\temp" + fileName);
+                        articleMap.put(fileItem.getFieldName(), fileName);
+                        File uploadFile = new File(currentDirPath + "\\temp\\" + fileName);
                         fileItem.write(uploadFile);
                     }
                 }

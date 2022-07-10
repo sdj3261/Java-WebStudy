@@ -136,6 +136,21 @@ public class BoardController extends HttpServlet {
                         " alert('글을 수정했습니다!');" + " location.href= '" + request.getContextPath() + "/board/viewArticle.do?articleNo=" + articleNo + "';"
                         + "</script>");
             }
+            else if(action.equals("/removeArticle.do")) {
+                int articleNo = Integer.parseInt(request.getParameter("articleNO"));
+                List<Integer> articleNoList = boardService.removeArticle(articleNo);
+                for(int _articleNo : articleNoList) {
+                    File imgDir = new File(ARTICLE_IMAGE_REPOSITORY + "\\" + _articleNo);
+                    if(imgDir.exists()) {
+                        FileUtils.deleteDirectory(imgDir);
+                    }
+                }
+
+                PrintWriter pw = response.getWriter();
+                pw.print("<script>" +
+                        " alert('글을 삭제했습니다!');" + " location.href= '" + request.getContextPath() + "/board/listArticles.do';"
+                        + "</script>");
+            }
             else {
                 nextPage = "/ex01/listArticles.jsp";
             }

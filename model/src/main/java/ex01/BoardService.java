@@ -23,4 +23,10 @@ public class BoardService {
     public void modArticle(ArticleVO article) {
         boardDAO.updateArticle(article);
     }
+
+    public List<Integer> removeArticle(int articleNo) {
+        List<Integer> articleNoList = boardDAO.selectRemovedArticles(articleNo);
+        boardDAO.deleteArticle(articleNo);
+        return articleNoList;
+    }
 }

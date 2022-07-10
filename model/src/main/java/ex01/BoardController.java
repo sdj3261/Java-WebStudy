@@ -132,7 +132,9 @@ public class BoardController extends HttpServlet {
                     }
                 }
                 PrintWriter pw = response.getWriter();
-                pw.print("<script>" + " alert('글을 수정했습니다!');" + " location.href= '" + request.getContextPath() + "/board/viewArticle.do?articleNo=" + articleNo + "';</script>");
+                pw.print("<script>" +
+                        " alert('글을 수정했습니다!');" + " location.href= '" + request.getContextPath() + "/board/viewArticle.do?articleNo=" + articleNo + "';"
+                        + "</script>");
             }
             else {
                 nextPage = "/ex01/listArticles.jsp";

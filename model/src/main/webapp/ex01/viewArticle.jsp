@@ -90,12 +90,9 @@
             </td>
         </tr>
         <tr>
-            <td width="150" align="center" bgcolor="#FF9933">
-                내용
+            <td width="150" align="center" bgcolor="#FF9933">내용
             </td>
-            <td>
-                <textarea rows="20" cols="60"  name="content"  id="i_content"  disabled />${article.content }
-                </textarea>
+            <td><textarea rows="20" cols="60"  name="content"  id="i_content"  disabled>${article.content}</textarea>
             </td>
         </tr>
 

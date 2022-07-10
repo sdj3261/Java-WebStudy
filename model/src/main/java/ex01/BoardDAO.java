@@ -199,7 +199,7 @@ public class BoardDAO {
         }
     }
 
-    public void selectRemovedArticles(int articleNo) {
+    public List<Integer> selectRemovedArticles(int articleNo) {
         List<Integer> articleNoList = new ArrayList<Integer>();
         try {
             conn = dataFactory.getConnection();

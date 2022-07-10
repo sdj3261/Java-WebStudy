@@ -98,6 +98,42 @@ public class BoardController extends HttpServlet {
                 pw.print("<script>" + " alert('새글을 추가했습니다!');" + " location.href= '" + request.getContextPath() + "/board/listArticles.do';" + "</script>");
                 return;
             }
+            else if(action.equals("/viewArticle.do")) {
+                String articleNo = request.getParameter("articleNO");
+                articleVO = boardService.viewArticle(Integer.parseInt(articleNo));
+                request.setAttribute("article", articleVO);
+                nextPage = "/ex01/viewArticle.jsp";
+            }
+            else if(action.equals("/modArticle.do")) {
+                Map<String,String> articleMap = upload(request,response);
+                int articleNo = Integer.parseInt(articleMap.get("articleNO"));
+                articleVO.setArticleNO(articleNo);
+                String title = articleMap.get("title");
+                String content = articleMap.get("content");
+                String imageFileName = articleMap.get("imageFileName");
+                articleVO.setParentNO(0);
+                articleVO.setId("hong");
+                articleVO.setTitle(title);
+                articleVO.setContent(content);
+                if(imageFileName != null) {
+                    articleVO.setImageFileName(imageFileName);
+                }
+                boardService.modArticle(articleVO);
+
+                if(imageFileName != null && imageFileName.length() != 0) {
+                    String originalFileName = articleMap.get("originalFileName");
+                    File srcFile = new File(ARTICLE_IMAGE_REPOSITORY + "\\" + "temp" + "\\" +imageFileName);
+                    File destDir = new File(ARTICLE_IMAGE_REPOSITORY + "\\" + articleNo);
+                    destDir.mkdirs();
+                    FileUtils.moveFileToDirectory(srcFile,destDir, true);
+                    File oldFile = new File(ARTICLE_IMAGE_REPOSITORY + "\\" + articleNo + "\\" + originalFileName);
+                    if(oldFile.delete()) {
+                        System.out.println("기존 파일 삭제 : " + oldFile.getName());
+                    }
+                }
+                PrintWriter pw = response.getWriter();
+                pw.print("<script>" + " alert('글을 수정했습니다!');" + " location.href= '" + request.getContextPath() + "/board/viewArticle.do?articleNo=" + articleNo + "';</script>");
+            }
             else {
                 nextPage = "/ex01/listArticles.jsp";
             }
@@ -137,6 +173,7 @@ public class BoardController extends HttpServlet {
 
                         String fileName = fileItem.getName().substring(idx+1);
                         articleMap.put(fileItem.getFieldName(), fileName);
+                        System.out.println("검증" + articleMap.get("imageFileName"));
                         File uploadFile = new File(currentDirPath + "\\temp\\" + fileName);
                         fileItem.write(uploadFile);
                     }

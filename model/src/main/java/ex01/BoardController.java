@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -59,11 +60,12 @@ public class BoardController extends HttpServlet {
         String nextPage = "";
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
+        HttpSession session;
         String action = request.getPathInfo();
         System.out.println("action:" + action);
         try {
             List<ArticleVO> articlesList = new ArrayList<ArticleVO>();
-            if (action == null) {
+            if (action ==   null) {
                 articlesList = boardService.listArticles();
                 request.setAttribute("articlesList", articlesList);
                 nextPage = "/ex01/listArticles.jsp";
@@ -150,6 +152,29 @@ public class BoardController extends HttpServlet {
                 pw.print("<script>" +
                         " alert('글을 삭제했습니다!');" + " location.href= '" + request.getContextPath() + "/board/listArticles.do';"
                         + "</script>");
+            }
+            else if(action.equals("/replyForm.do")) {
+                int parentNO = Integer.parseInt(request.getParameter("parentNO"));
+                session = request.getSession();
+                session.setAttribute("parentNO", parentNO);
+                nextPage = "/ex01/replyForm.jsp";
+            }
+            else if (action.equals("/addReply.do")) {
+                session = request.getSession();
+                int parentNO = (Integer) session.getAttribute("parentNO");
+                session.removeAttribute("parentNO");
+                Map<String,String> articleMap = upload(request,response);
+                String title = articleMap.get("title");
+                String content = articleMap.get("content");
+                String imageFileName = articleMap.get("imageFileName");
+
+                articleVO.setParentNO(parentNO);
+                articleVO.setId("lee");
+                articleVO.setTitle(title);
+                articleVO.setContent(content);
+                articleVO.setImageFileName(imageFileName);
+
+
             }
             else {
                 nextPage = "/ex01/listArticles.jsp";

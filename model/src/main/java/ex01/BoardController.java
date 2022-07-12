@@ -186,7 +186,7 @@ public class BoardController extends HttpServlet {
             e.printStackTrace();
         }
     }
-
+    //mybatis 연동
     private Map<String, String> upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String,String> articleMap = new HashMap<String, String>();
         String encoding = "utf-8";

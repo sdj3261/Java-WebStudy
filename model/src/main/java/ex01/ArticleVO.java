@@ -93,6 +93,7 @@ public class ArticleVO {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        //이미지 파일
         return imageFileName;
     }
 

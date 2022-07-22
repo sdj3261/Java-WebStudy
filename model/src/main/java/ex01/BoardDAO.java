@@ -199,6 +199,7 @@ public class BoardDAO {
         }
     }
 
+    //계층형 쿼리
     public List<Integer> selectRemovedArticles(int articleNo) {
         List<Integer> articleNoList = new ArrayList<Integer>();
         try {

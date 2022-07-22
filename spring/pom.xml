@@ -5,17 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>webShop</artifactId>
+  <artifactId>spring</artifactId>
   <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>sessionTest</module>
-        <module>JSP</module>
-        <module>Model2</module>
-        <module>spring</module>
-    </modules>
-    <packaging>pom</packaging>
+  <packaging>war</packaging>
 
-  <name>webShop Maven Webapp</name>
+  <name>spring Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -32,10 +26,21 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>3.1.1.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>3.1.1.RELEASE</version>
+    </dependency>
   </dependencies>
 
   <build>
-    <finalName>webShop</finalName>
+    <finalName>spring</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
